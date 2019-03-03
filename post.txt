@@ -1,0 +1,19 @@
+example of POST request tp send notification
+
+HEADERS :
+
+Content-Type: application/json
+Authorization: key=SERVER_KEY
+
+BODY :
+
+
+{
+    "notification": {
+        "title": "Firebase",
+        "body": "Firebase is awesome",
+        "click_action": "http://localhost:3000/",
+        "icon": "http://url-to-an-icon/icon.png"
+    },
+    "to": "fGp6yerbRus:APA91bFXkFcQsLrafDwNPBSMIyb5vt1cc0Y0SODU-A7TRePxxn4dnpHZNdKPWQOI9Q525bvEZ8Sem0tl1D_bGAJrMBWh7vSN2vd-QiVB8HHpzoKsFnOhNzTxxBIflkk_4DQWI23lTXqW"
+}
