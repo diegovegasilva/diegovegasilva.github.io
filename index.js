@@ -1,7 +1,7 @@
 (function() {
     'use strict'
 
-    const applicationServerPublicKey = 'BDSY9OtPoOFFq8XpQNhnX_c2ZVRH_OZSaG5Ku9NPwagPYKylVxKs9QQSV5iIQ6jpHzcYYccoSrt-ZW7Yo6vVxDg';
+    const applicationServerPublicKey = 'AIzaSyAmferqQ9L79uCyLfyFBP04qH7H_OCLFp0';
 
 
 
@@ -33,10 +33,9 @@
         pushSubscribe(registration) {
             registration.pushManager.subscribe({
                 userVisibleOnly: true,
-                /* applicationServerKey: this.applicationServerKey */
+                applicationServerKey: this.applicationServerKey
             }).then(subscription => {
-              registration.showNotification('Hola Mundo');
-                console.log(subscription.endpoint);
+                console.log(subscription);
             }).catch(error => {
                 console.error('subscription error', error)
             })
