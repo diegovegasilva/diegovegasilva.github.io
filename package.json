@@ -1,0 +1,22 @@
+{
+  "name": "native-push-test",
+  "version": "1.0.0",
+  "description": "Native push notification test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegovegasilva/diegovegasilva.github.io.git"
+  },
+  "author": "Diego Vega",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diegovegasilva/diegovegasilva.github.io/issues"
+  },
+  "homepage": "https://github.com/diegovegasilva/diegovegasilva.github.io#readme",
+  "devDependencies": {
+    "web-push": "^3.3.3"
+  }
+}
