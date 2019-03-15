@@ -1,11 +1,9 @@
-<PWA-weather-header></PWA-weather-header>
+<PWA-weather-header (addCity)="addCity()"></PWA-weather-header>
 
 <main class="main">
     <PWA-weather-weather-card></PWA-weather-weather-card>
 </main>
 
-
-<button mat-raised-button (click)="openDialog()">Pick one</button>
 
 <div class="loader">
     <svg viewBox="0 0 32 32"

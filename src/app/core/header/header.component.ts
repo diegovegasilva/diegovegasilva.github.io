@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'PWA-weather-header',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Output() addCity = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  refresh(){}
+
+  add(){
+    this.addCity.emit();
   }
 
 }

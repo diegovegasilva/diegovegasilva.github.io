@@ -24,4 +24,9 @@ export class AppComponent {
 
     });
   }
+
+  addCity(){
+	  this.openDialog();
+	  console.log('add city button pushed')
+  }
 }
