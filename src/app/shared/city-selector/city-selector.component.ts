@@ -16,11 +16,11 @@ export class CitySelectorComponent implements OnInit {
 
 
   cities: any[] = [
-    { value: 349727, viewValue: 'New York' },
-    { value: 348308, viewValue: 'Chicago' },
-    { value: 328328, viewValue: 'London' },
-    { value: 308526, viewValue: 'Madrid' },
-    { value: 623, viewValue: 'Paris' },
+    { value: 5128638, viewValue: 'New York' },
+    { value: 4887398, viewValue: 'Chicago' },
+    { value: 2643744, viewValue: 'London' },
+    { value: 4865871, viewValue: 'Madrid' },
+    { value: 2988507, viewValue: 'Paris' },
   ];
 
 
