@@ -22,7 +22,6 @@ export class WeatherService {
   }
 
   filterByDay(data) {
-    let forecast = data.list;
     data.forecast = [];
     let addedDays = [];
     _.each(data.list, fore => {
