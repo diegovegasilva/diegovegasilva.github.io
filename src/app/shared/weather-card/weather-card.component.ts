@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./weather-card.component.scss']
 })
 export class WeatherCardComponent implements OnInit {
-  @Input() weatherData;
+  @Input() forecastData;
   constructor() { }
 
   ngOnInit() {

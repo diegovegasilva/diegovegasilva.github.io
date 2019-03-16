@@ -19,7 +19,7 @@ export class CitySelectorComponent implements OnInit {
     { value: 5128638, viewValue: 'New York' },
     { value: 4887398, viewValue: 'Chicago' },
     { value: 2643744, viewValue: 'London' },
-    { value: 4865871, viewValue: 'Madrid' },
+    { value: 6359304, viewValue: 'Madrid' },
     { value: 2988507, viewValue: 'Paris' },
   ];
 

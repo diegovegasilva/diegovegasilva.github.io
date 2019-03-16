@@ -1,25 +1,26 @@
 <div class="card weather-forecast">
     <div class="city-key"></div>
     <div class="card-last-updated"></div>
-    <div class="location"></div>
-    <div class="date"></div>
-    <div class="description"></div>
+    <div class="location">{{forecastData.city.name}}, {{forecastData.city.country}}</div>
+    <div class="date">{{forecastData.forecast[0].dt_txt}}</div>
+    <div class="description">{{forecastData.forecast[0].weather[0].description}}</div>
     <div class="current">
         <div class="visual">
             <div class="icon"></div>
             <div class="temperature">
-                <span class="value"></span><span class="scale">°F</span>
+                <span class="value">{{forecastData.forecast[0].main.temp | number:'1.0-0'}}</span><span class="scale">°C</span>
             </div>
         </div>
         <div class="description">
-            <div class="humidity"></div>
-            <div class="wind">
-                <span class="value"></span>
-                <span class="scale">mph</span>
-                <span class="direction"></span>°
+            <div>humedad: {{forecastData.forecast[0].main.humidity}}%</div>
+            <div>
+                viento
+                <span class="value">{{forecastData.forecast[0].wind.speed}}</span>
+                <span class="scale">m/s</span>
+                <span class="direction"> {{forecastData.forecast[0].wind.deg}}</span>°
             </div>
-            <div class="sunrise"></div>
-            <div class="sunset"></div>
+            <div>max: {{forecastData.forecast[0].main.temp_max | number:'1.0-0'}}</div>
+            <div>min: {{forecastData.forecast[0].main.temp_min | number:'1.0-0'}}</div>
         </div>
     </div>
     <div class="future">
