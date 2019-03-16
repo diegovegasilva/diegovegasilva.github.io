@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-
+import { map } from 'rxjs/operators';
 import _ from 'lodash';
 
 @Injectable({
@@ -13,6 +13,24 @@ export class WeatherService {
 
   get5DayForecast(cityId) {
     let url = 'https://api.openweathermap.org/data/2.5/forecast?id=';
-    return this.http.get(`${url}${cityId}&appid=${this.APIkey}`);
+    return this.http.get(`${url}${cityId}&appid=${this.APIkey}`).pipe(
+      map(res => {
+        this.filterByDay(res);
+        return res;
+      })
+    );
+  }
+
+  filterByDay(data) {
+    let forecast = data.list;
+    data.forecast = [];
+    let addedDays = [];
+    _.each(data.list, fore => {
+      let tempDay = fore.dt_txt.substring(0, 10);
+      if (_.indexOf(addedDays, tempDay) < 0) {
+        addedDays.push(tempDay);
+        data.forecast.push(fore);
+      }
+    });
   }
 }
