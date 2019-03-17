@@ -1,5 +1,5 @@
 <div class="card weather-forecast">
-    <div class="close" (click)="close()">x</div>
+    <div class="close" (click)="close()"><i class="material-icons">close</i></div>
     <div class="card-last-updated"></div>
     <div class="location">{{forecastData.city.name}}, {{forecastData.city.country}}</div>
     <div class="date">{{forecastData.forecast[0].dt_txt | date : 'EEEE, d MMMM'}}</div>
@@ -14,13 +14,13 @@
         <div class="description">
             <div>humedad: {{forecastData.forecast[0].main.humidity}}%</div>
             <div>
-                viento
+                viento:
                 <span class="value">{{forecastData.forecast[0].wind.speed}}</span>
                 <span class="scale">m/s</span>
                 <span class="direction"> {{forecastData.forecast[0].wind.deg}}</span>°
             </div>
-            <div>max: {{forecastData.forecast[0].main.temp_max | number:'1.0-0'}}</div>
-            <div>min: {{forecastData.forecast[0].main.temp_min | number:'1.0-0'}}</div>
+            <div>max: {{forecastData.forecast[0].main.temp_max | number:'1.0-0'}}</div>°C
+            <div>min: {{forecastData.forecast[0].main.temp_min | number:'1.0-0'}}</div>°C
         </div>
     </div>
     <div class="future">
