@@ -1,5 +1,5 @@
 
-    <div class="date">{{weather.dt_txt}}</div>
+    <div class="date">{{weather.dt_txt | date : 'EEE d'}}</div>
     <div class="icon"><img src="../../../assets/images/{{imgURL}}.png" /></div>
     <div class="temp-high">
         <span class="value">{{weather.main.temp_max | number : '1.0-0'}}</span>°
