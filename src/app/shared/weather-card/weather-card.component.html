@@ -24,75 +24,8 @@
         </div>
     </div>
     <div class="future">
-        <div class="oneday">
-            <div class="date"></div>
-            <div class="icon"></div>
-            <div class="temp-high">
-                <span class="value"></span>°
-            </div>
-            <div class="temp-low">
-                <span class="value"></span>°
-            </div>
-        </div>
-        <div class="oneday">
-            <div class="date"></div>
-            <div class="icon"></div>
-            <div class="temp-high">
-                <span class="value"></span>°
-            </div>
-            <div class="temp-low">
-                <span class="value"></span>°
-            </div>
-        </div>
-        <div class="oneday">
-            <div class="date"></div>
-            <div class="icon"></div>
-            <div class="temp-high">
-                <span class="value"></span>°
-            </div>
-            <div class="temp-low">
-                <span class="value"></span>°
-            </div>
-        </div>
-        <div class="oneday">
-            <div class="date"></div>
-            <div class="icon"></div>
-            <div class="temp-high">
-                <span class="value"></span>°
-            </div>
-            <div class="temp-low">
-                <span class="value"></span>°
-            </div>
-        </div>
-        <div class="oneday">
-            <div class="date"></div>
-            <div class="icon"></div>
-            <div class="temp-high">
-                <span class="value"></span>°
-            </div>
-            <div class="temp-low">
-                <span class="value"></span>°
-            </div>
-        </div>
-        <div class="oneday">
-            <div class="date"></div>
-            <div class="icon"></div>
-            <div class="temp-high">
-                <span class="value"></span>°
-            </div>
-            <div class="temp-low">
-                <span class="value"></span>°
-            </div>
-        </div>
-        <div class="oneday">
-            <div class="date"></div>
-            <div class="icon"></div>
-            <div class="temp-high">
-                <span class="value"></span>°
-            </div>
-            <div class="temp-low">
-                <span class="value"></span>°
-            </div>
-        </div>
+            <PWA-weather-day-weather class="oneday" *ngFor="let day of forecastData.forecast" [weather]="day">
+
+            </PWA-weather-day-weather>
     </div>
 </div>

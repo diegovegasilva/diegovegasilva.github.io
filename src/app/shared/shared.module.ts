@@ -8,9 +8,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { WeatherCardComponent } from './weather-card/weather-card.component';
 import { CitySelectorComponent } from './city-selector/city-selector.component';
+import { DayWeatherComponent } from './day-weather/day-weather.component';
 
 @NgModule({
-  declarations: [WeatherCardComponent, CitySelectorComponent],
+  declarations: [WeatherCardComponent, CitySelectorComponent, DayWeatherComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
