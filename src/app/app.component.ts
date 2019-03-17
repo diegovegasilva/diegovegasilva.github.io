@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material';
 import { CitySelectorComponent } from './shared/city-selector/city-selector.component';
 import { WeatherService } from './services/weather.service';
 
+import { initialCity } from './shared/models/initial-city.model';
+
 import _ from 'lodash';
 
 @Component({
@@ -11,11 +13,12 @@ import _ from 'lodash';
   templateUrl: './app.component.html',
   styles: []
 })
-export class AppComponent {
+export class AppComponent{
   title = 'PWA-weather-app';
-  citiesForeCast: Array<object> = [];
-  activeCities: number[] = [];
+  citiesForeCast: Array<object> = initialCity;
+  activeCities: number[] = [initialCity[0].city.id];
   loading: boolean = true;
+
 
   constructor(
     private weatherService: WeatherService,
@@ -24,7 +27,7 @@ export class AppComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CitySelectorComponent, {
-      width: '250px',
+      width: '250px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
