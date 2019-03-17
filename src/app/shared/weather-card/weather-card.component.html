@@ -6,7 +6,7 @@
     <div class="description">{{forecastData.forecast[0].weather[0].description}}</div>
     <div class="current">
         <div class="visual">
-            <div class="icon"></div>
+            <div class="icon"><img src="../../../assets/images/{{imgURL}}.png" /></div>
             <div class="temperature">
                 <span class="value">{{forecastData.forecast[0].main.temp | number:'1.0-0'}}</span><span class="scale">°C</span>
             </div>

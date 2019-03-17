@@ -6,12 +6,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./day-weather.component.scss']
 })
 export class DayWeatherComponent implements OnInit {
-
   @Input() weather;
+  imgURL: string;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    
   }
 
+  ngOnInit() {
+    this.imgURL = this.weather.weather[0].icon.slice(0, -1);
+  }
 }
