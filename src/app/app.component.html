@@ -1,7 +1,7 @@
 <PWA-weather-header (addCity)="addCity()"></PWA-weather-header>
 
 <main class="main">
-    <PWA-weather-weather-card *ngFor="let forecast of citiesForeCast" [forecastData]="forecast"></PWA-weather-weather-card>
+    <PWA-weather-weather-card *ngFor="let forecast of citiesForeCast" [forecastData]="forecast" (closeCard)="removeCity($event)"></PWA-weather-weather-card>
 </main>
 
 

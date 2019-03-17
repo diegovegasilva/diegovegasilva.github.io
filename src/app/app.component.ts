@@ -51,4 +51,8 @@ export class AppComponent {
     this.openDialog();
     console.log('add city button pushed');
   }
+
+  removeCity(cityId) {
+    _.remove(this.citiesForeCast, city => city.city.id === cityId);
+  }
 }
