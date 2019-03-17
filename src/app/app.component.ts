@@ -13,8 +13,9 @@ import _ from 'lodash';
 })
 export class AppComponent {
   title = 'PWA-weather-app';
-  cityToAdd: number;
   citiesForeCast: Array<object> = [];
+  activeCities: number[] = [];
+  loading: boolean = true;
 
   constructor(
     private weatherService: WeatherService,
@@ -24,35 +25,43 @@ export class AppComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(CitySelectorComponent, {
       width: '250px',
-      data: { name: 'pwpw', animal: 'pepe' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      this.cityToAdd = result;
       if (result) {
-        this.weatherService.get5DayForecast(result).subscribe((data: any) => {
-          let cityIndex = _.findIndex(
-            this.citiesForeCast,
-            city => city.city.id === data.city.id
-          );
-          if (cityIndex > -1) {
-            this.citiesForeCast.splice(cityIndex, 1, data);
-          } else {
-            this.citiesForeCast.push(data);
-          }
-          console.log('weather data', this.citiesForeCast);
-        });
+        this.addCityData(result);
       }
     });
   }
 
   addCity() {
     this.openDialog();
-    console.log('add city button pushed');
+  }
+
+  getCitiesForecast(citiesId) {
+    this.citiesForeCast = [];
+    _.each(citiesId, cityId => this.addCityData(cityId));
   }
 
   removeCity(cityId) {
     _.remove(this.citiesForeCast, city => city.city.id === cityId);
+    _.remove(this.activeCities, city => city === cityId);
+  }
+
+  addCityData(cityId) {
+    this.loading = true;
+    this.weatherService.get5DayForecast(cityId).subscribe((data: any) => {
+      this.loading = false;
+      let cityIndex = _.findIndex(
+        this.citiesForeCast,
+        city => city.city.id === data.city.id
+      );
+      if (cityIndex > -1) {
+        this.citiesForeCast.splice(cityIndex, 1, data);
+      } else {
+        this.citiesForeCast.push(data);
+        this.activeCities.push(data.city.id);
+      }
+    });
   }
 }
