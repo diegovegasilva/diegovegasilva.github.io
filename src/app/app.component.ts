@@ -64,7 +64,6 @@ export class AppComponent implements OnInit{
   removeCity(cityId) {
     _.remove(this.citiesForeCast, city => parseInt(city.city.id) === parseInt(cityId));
     _.remove(this.activeCities, city => parseInt(city) === parseInt(cityId));
-    console.log(this.activeCities)
     localStorage.setItem('selectedCities', this.activeCities.join());
   }
 
@@ -72,9 +71,7 @@ export class AppComponent implements OnInit{
     this.loading = true;
     this.weatherService.get5DayForecast(cityId).subscribe((data: any) => {
       this.loading = false;
-      console.log(this.activeCities, data.city.id)
       let cityIndex = _.indexOf(this.activeCities, data.city.id)
-      console.log('cityIndex', cityIndex, cityId);
       if (cityIndex > -1) {
         this.citiesForeCast.splice(cityIndex, 1, data);
       } else {
