@@ -2,6 +2,7 @@
 
 <main class="main">
     <PWA-weather-weather-card *ngFor="let forecast of citiesForeCast" [forecastData]="forecast" (closeCard)="removeCity($event)"></PWA-weather-weather-card>
+    <PWA-weather-users *ngIf="users" [users]="users"></PWA-weather-users>
 </main>
 
 

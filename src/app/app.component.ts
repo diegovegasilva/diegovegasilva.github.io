@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
 import { CitySelectorComponent } from './shared/city-selector/city-selector.component';
-import { WeatherService } from './services/weather.service';
+import { WeatherService } from './core/services/weather.service';
 
 import { initialCity } from './shared/models/initial-city.model';
 
 import _ from 'lodash';
+import { UsersService } from './core/services/users.service';
 
 @Component({
   selector: 'PWA-weather-root',
@@ -18,10 +19,12 @@ export class AppComponent implements OnInit{
   citiesForeCast: Array<object> = [];
   activeCities: any[];
   loading: boolean = true;
+  users: Array<any>;
 
 
   constructor(
     private weatherService: WeatherService,
+    private usersService: UsersService,
     public dialog: MatDialog
   ) {
     if(localStorage.getItem('selectedCities')){
@@ -39,6 +42,7 @@ export class AppComponent implements OnInit{
       this.activeCities = [initialCity[0].city.id];
       this.citiesForeCast = initialCity;
     }
+    this.getUsers();
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(CitySelectorComponent, {
@@ -80,5 +84,9 @@ export class AppComponent implements OnInit{
         localStorage.setItem('selectedCities', this.activeCities.join())
       }
     });
+  }
+
+  getUsers(){
+    this.usersService.getUsers().subscribe( (users: any[]) =>  this.users = users)
   }
 }

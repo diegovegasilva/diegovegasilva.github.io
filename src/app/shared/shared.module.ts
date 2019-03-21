@@ -9,9 +9,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { WeatherCardComponent } from './weather-card/weather-card.component';
 import { CitySelectorComponent } from './city-selector/city-selector.component';
 import { DayWeatherComponent } from './day-weather/day-weather.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
-  declarations: [WeatherCardComponent, CitySelectorComponent, DayWeatherComponent],
+  declarations: [WeatherCardComponent, CitySelectorComponent, DayWeatherComponent, UsersComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -26,7 +27,8 @@ import { DayWeatherComponent } from './day-weather/day-weather.component';
     MatFormFieldModule,
     MatSelectModule,
     WeatherCardComponent,
-    CitySelectorComponent
+    CitySelectorComponent,
+    UsersComponent
   ]
 })
 export class SharedModule { }
