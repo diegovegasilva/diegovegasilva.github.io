@@ -7,27 +7,38 @@ if (workbox) {
         debug: true
     });
 
-    const precacheController = new workbox.precaching.PrecacheController();
+
+    workbox.precaching.precacheAndRoute(
+        [
+          'https://fonts.googleapis.com/icon?family=Material+Icons',
+          {
+                url: '/vendor.js',
+                revision: 'abcd',
+            },
+            {
+                url: '/main.js',
+                revision: '1234',
+            },
+            {
+                url: '/runtime.js',
+                revision: '12344',
+            },
+            {
+                url: '/polyfills.js',
+                revision: '1234234',
+            },
+            {
+                url: '/styles.js',
+                revision: '1234bdsa',
+            },
+            {
+                url: '/index.html',
+                revision: '23423154'
+            }
+        ]
+    );
 
 
-    precacheController.addToCacheList([{
-        url: '/vendor.js',
-        revision: 'abcd',
-    }, {
-        url: '/main.js',
-        revision: '1234',
-    }, {
-        url: '/index.html',
-        revision: '2342314'
-    }]);
-
-    self.addEventListener('install', (event) => {
-        event.waitUntil(precacheController.install());
-    });
-    self.addEventListener('activate', (event) => {
-        console.log('activate sw')
-        event.waitUntil(precacheController.activate());
-    });
 
     workbox.routing.registerRoute(
         // Cache image files.
@@ -46,23 +57,7 @@ if (workbox) {
             ],
         })
     );
-    workbox.routing.registerRoute(
-        // Cache image files.
-        '/',
-        // Use the cache if it's available.
-        new workbox.strategies.CacheFirst({
-            // Use a custom cache name.
-            cacheName: 'html-cache',
-            plugins: [
-                new workbox.expiration.Plugin({
-                    // Cache only 20 images.
-                    maxEntries: 20,
-                    // Cache for a maximum of a week.
-                    maxAgeSeconds: 7 * 24 * 60 * 60,
-                })
-            ],
-        })
-    );
+
 
 
     /* self.addEventListener('fetch', function(e) {
