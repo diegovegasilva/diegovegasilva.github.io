@@ -40,9 +40,10 @@
     });
 
     self.addEventListener('fetch', function(e) {
-        console.log('[ServiceWorker] Fetch', e.request.url);
+        console.log('[ServiceWorker] Fetch', e.request);
         e.respondWith(
           caches.match(e.request).then(function(response) {
+              console.log('response', response)
             return response || fetch(e.request);
           })
         );

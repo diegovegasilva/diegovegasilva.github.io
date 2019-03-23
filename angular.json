@@ -45,7 +45,8 @@
               "src/favicon.ico",
               "src/manifest.json",
               "src/assets",
-              "src/service-worker.js"
+              "src/service-worker.js",
+              "src/workbox-sw.js"
             ],
             "styles": [
               "src/styles.scss"
@@ -112,7 +113,8 @@
               "src/favicon.ico",
               "src/manifest.json",
               "src/assets",
-              "src/service-worker.js"
+              "src/service-worker.js",
+              "src/workbox-sw.js"
             ]
           }
         },

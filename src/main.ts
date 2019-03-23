@@ -10,7 +10,8 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule).then(() => {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js').then(() => console.log('service worker registered sucessfully'));
+    //navigator.serviceWorker.register('/service-worker.js').then(() => console.log('service worker registered sucessfully'));
+    navigator.serviceWorker.register('/workbox-sw.js').then(() => console.log('service worker registered sucessfully'));
   }
 })
   .catch(err => console.error(err));
