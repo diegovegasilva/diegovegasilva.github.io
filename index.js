@@ -1,4 +1,4 @@
-(function() {
+(function(app) {
     'use strict'
 
     var config = {
@@ -114,24 +114,32 @@
         }
     }
 
-    function requestPermission() {
+    app.requestPermission = function() {
         console.log('Requesting permission...');
         // [START request_permission]
-        messaging.requestPermission().then(function() {
-            console.log('Notification permission granted.');
-            // TODO(developer): Retrieve an Instance ID token for use with FCM.
-            // [START_EXCLUDE]
-            // In many cases once an app has been granted notification permission, it
-            // should update its UI reflecting this.
-            resetUI();
-            // [END_EXCLUDE]
-        }).catch(function(err) {
-            console.log('Unable to get permission to notify.', err);
-        });
+        var input = document.querySelector('#username');
+        if(input.value && input.value !== ''){
+            messaging.requestPermission().then(function() {
+                console.log('Notification permission granted.');
+                // TODO(developer): Retrieve an Instance ID token for use with FCM.
+                // [START_EXCLUDE]
+                messaging.getToken().then(function(currentToken) {
+                    writeUserData(input.value, currentToken)
+                    resetUI();
+                })
+                // In many cases once an app has been granted notification permission, it
+                // should update its UI reflecting this.
+                // [END_EXCLUDE]
+            }).catch(function(err) {
+                console.log('Unable to get permission to notify.', err);
+            });
+        } else{
+            alert('debes introducir tu nombre')
+        }
         // [END request_permission]
     }
 
-    function deleteToken() {
+    app.deleteToken = function() {
         // Delete Instance ID token.
         // [START delete_token]
         messaging.getToken().then(function(currentToken) {
@@ -185,16 +193,28 @@
 
     if ("serviceWorker" in navigator) {
         if (navigator.serviceWorker.controller) {
-          console.log("[PWA Builder] active service worker found, no need to register");
+            console.log("[PWA Builder] active service worker found, no need to register");
         } else {
-          // Register the service worker
-          navigator.serviceWorker
-            .register("sw.js", {
-              scope: "./"
-            })
-            .then(function (reg) {
-              console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
-            });
+            // Register the service worker
+            navigator.serviceWorker
+                .register("sw.js", {
+                    scope: "./"
+                })
+                .then(function(reg) {
+                    console.log("[PWA Builder] Service worker has been registered for scope: " + reg.scope);
+                });
         }
-      }
-})()
+    }
+
+
+    const database = firebase.database();
+
+    function writeUserData(name, token) {
+        console.log('write')
+        firebase.database().ref('users').push({
+            username: name,
+            token: token,
+        });
+    }
+
+})(window)
