@@ -37,16 +37,20 @@
                   <h4>Instance ID Token</h4>
                   <p id="token" style="word-break: break-all;"></p>
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                          onclick="deleteToken()">Delete Token</button>
+                          onclick="deleteToken()">resetear token</button>
                 </div>
                 <!-- div to display the UI to allow the request for permission to
                      notify the user. This is shown if the app has not yet been
                      granted permission to notify. -->
                 <div id="permission_div" style="display: none;">
-                  <h4>Needs Permission</h4>
+                  <h4>Hola, introduce tu nombre y pulsa el boton para suscribirte a las notificaciones</h4>
                   <p id="token"></p>
+                  <div class="mdl-textfield mdl-js-textfield">
+                  <input placeholder="introduce tu nombre" type="text" id="username" class="mdl-textfield__input" type="text" />
+                  </div>
+                </br>
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
-                          onclick="requestPermission()">Request Permission</button>
+                          onclick="requestPermission()">Suscribir</button>
                 </div>
                 <!-- div to display messages received by this app. -->
                 <div id="messages"></div>
