@@ -22,12 +22,12 @@ export class AppComponent implements OnInit {
   activeCities: any[];
   loading: boolean = true;
   users: Array<any>;
-
+  token: string;
 
   constructor(
     private weatherService: WeatherService,
-	private usersService: UsersService,
-	private firebaseService: FirebaseService,
+    private usersService: UsersService,
+    private firebaseService: FirebaseService,
     public dialog: MatDialog
   ) {
     if (localStorage.getItem('selectedCities')) {
@@ -49,12 +49,7 @@ export class AppComponent implements OnInit {
       this.citiesForeCast = initialCity;
     }
     this.getUsers();
-	this.firebaseService.init();
-	this.firebaseService.requestPermission().then(() =>{
-		this.firebaseService.getToken().then(
-			token => {console.log('iuyui', token)}
-		)
-	})
+    this.requestPermission();
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(CitySelectorComponent, {
@@ -107,4 +102,17 @@ export class AppComponent implements OnInit {
       .subscribe((users: any[]) => (this.users = users));
   }
 
+  requestPermission() {
+    this.firebaseService
+      .requestPermission()
+      .then(() => {
+        this.firebaseService.getToken().then(token => {
+			console.log('token', token)
+          this.token = token;
+        });
+      })
+      .catch(e => {
+        console.log('e', e);
+      });
+  }
 }
