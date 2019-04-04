@@ -45,7 +45,7 @@
               "src/favicon.ico",
               "src/manifest.json",
               "src/assets",
-              "src/service-worker.js",
+              "src/firebase-messaging-sw.js",
               "src/workbox-sw.js"
             ],
             "styles": [
@@ -113,7 +113,7 @@
               "src/favicon.ico",
               "src/manifest.json",
               "src/assets",
-              "src/service-worker.js",
+              "src/firebase-messaging-sw.js",
               "src/workbox-sw.js"
             ]
           }
