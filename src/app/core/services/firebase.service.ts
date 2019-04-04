@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { tokenKey } from '@angular/core/src/view';
+
 
 @Injectable({
   providedIn: 'root'
@@ -53,8 +53,7 @@ export class FirebaseService {
   }
 
   saveTokenToDb(name, token) {
-    this.database()
-      .ref('users')
+    this.database.ref('users')
       .push({
         username: name,
         token: token
