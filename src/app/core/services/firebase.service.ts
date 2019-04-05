@@ -39,7 +39,7 @@ export class FirebaseService {
   requestPermission(username): Promise<any> {
     this.username = username;
     return this.messaging.requestPermission().then(() => {
-      this.getToken(username)
+      return this.getToken(username);
     });
   }
 

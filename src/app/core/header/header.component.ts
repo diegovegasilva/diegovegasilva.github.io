@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
   @Output() subscribe = new EventEmitter<any>();
   @Output() refreshData = new EventEmitter<any>();
   @Input() selectedCities: number[];
+  @Input() token: string;
 
   constructor() { }
 
@@ -25,7 +26,11 @@ export class HeaderComponent implements OnInit {
   }
 
   subscribeNotification() {
-    this.subscribe.emit();
+    this.subscribe.emit(true);
+  }
+
+  desubscribeNotification(){
+    this.subscribe.emit(false)
   }
 
 }

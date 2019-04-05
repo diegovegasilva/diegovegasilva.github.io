@@ -53,9 +53,10 @@ export class AppComponent implements OnInit {
 			this.citiesForeCast = initialCity;
 		}
 		this.getUsers();
-		if(localStorage.getItem('tokenStored')){
+		this.loading = false;
+		if (localStorage.getItem('tokenStored')) {
 			console.log('got stored')
-			this.firebaseService.getToken(this.username).then( token => this.token = token).catch(e => console.log(e));
+			this.firebaseService.getToken(this.username).then(token => this.token = token).catch(e => console.log(e));
 		}
 	}
 	openDialog(): void {
@@ -109,17 +110,22 @@ export class AppComponent implements OnInit {
 			.subscribe((users: any[]) => (this.users = users));
 	}
 
-	subscribe() {
-		console.log('open subscribe');
-		const dialogRef = this.dialog.open(NotificationPromtComponent, {
-			width: '450px'
-		});
-
-		dialogRef.afterClosed().subscribe(result => {
-			if (result) {
-				this.requestPermission(result);
-			}
-		});
+	subscribe(activate) {
+		if (activate) {
+			console.log('open subscribe');
+			const dialogRef = this.dialog.open(NotificationPromtComponent, {
+				width: '450px'
+			});
+			dialogRef.afterClosed().subscribe(result => {
+				if (result) {
+					this.requestPermission(result);
+				}
+			});
+		} else {
+			this.firebaseService.deleteToken(this.token);
+			this.token = undefined;
+			this.username = undefined;
+		}
 	}
 
 	requestPermission(username) {
@@ -128,10 +134,16 @@ export class AppComponent implements OnInit {
 			.then(token => {
 				this.token = token;
 				this.username = username;
-				console.log('request permission granted')
+				console.log('request permission granted', token)
 			})
 			.catch(e => {
 				console.log('e', e);
+				alert('debes permitir las notificaciones para suscribirte');
+				if (this.token) {
+					this.firebaseService.deleteToken(this.token);
+					this.token = undefined;
+					this.username = undefined;
+				}
 			});
 	}
 }
