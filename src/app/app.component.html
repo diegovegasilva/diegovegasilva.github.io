@@ -1,0 +1,19 @@
+<PWA-weather-header [token]="token" [selectedCities]="activeCities" (addCity)="addCity()" (subscribe)="subscribe($event)" (refreshData)="getCitiesForecast($event)"></PWA-weather-header>
+
+<main class="main">
+    <PWA-weather-weather-card *ngFor="let forecast of citiesForeCast" [forecastData]="forecast" (closeCard)="removeCity($event)"></PWA-weather-weather-card>
+    <PWA-weather-users *ngIf="users" [users]="users"></PWA-weather-users>
+</main>
+
+
+<div class="loader" *ngIf="loading">
+    <svg viewBox="0 0 32 32"
+         width="32"
+         height="32">
+        <circle id="spinner"
+                cx="16"
+                cy="16"
+                r="14"
+                fill="none"></circle>
+    </svg>
+</div>

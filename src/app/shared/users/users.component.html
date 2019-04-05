@@ -1,0 +1,11 @@
+<ul class="user-list">
+    <li *ngFor="let user of users">
+        <span>
+            <img class="avatar"
+                 [src]="user.avatar_url" /> {{user.login}}
+        </span>
+        <a class="url"
+           [href]="user.url"
+           target="_blank">{{user.url}}</a>
+    </li>
+</ul>
