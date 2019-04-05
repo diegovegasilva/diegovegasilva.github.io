@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class FirebaseService {
     );
     this.savedToDb = localStorage.getItem('tokenStored') === 'true';
     this.onTokenRefresh();
-    
+
     this.messaging.onMessage(payload => {
       console.log('Message received. ', payload)
     })
@@ -50,6 +50,7 @@ export class FirebaseService {
         if (!this.savedToDb) {
           this.saveTokenToDb(username, token);
         }
+        console.log('got token', token)
         this.token = token;
         return token;
       })
@@ -78,6 +79,21 @@ export class FirebaseService {
     this.savedToDb = false;
     localStorage.removeItem('tokenStored');
     localStorage.removeItem('username');
+    
+    var ref = this.database.ref('users');
+    var currentToken;
+    ref.once('value', (snapshot) => {
+      _.each(snapshot.val(), (reg, key) => {
+        if (reg.token === token) {
+          currentToken = key;
+          return false;
+        };
+      })
+      if (currentToken) {
+        this.database.ref('users/' + currentToken).remove();
+      }
+    })
+
   }
 
   private onTokenRefresh() {
