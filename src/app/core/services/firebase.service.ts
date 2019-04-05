@@ -8,7 +8,9 @@ import * as firebase from 'firebase';
 export class FirebaseService {
   messaging: any;
   database: any;
-  savedToDb: string;
+  savedToDb: boolean;
+  username: string;
+  token: string;
 
   constructor() {
     const config = {
@@ -25,34 +27,46 @@ export class FirebaseService {
     this.messaging.usePublicVapidKey(
       'BImFmvzyny5vYeR6_PlKHibuqQg5wgexzVfZGZiwbfA_Wce2qaWrBdci6OpXvxdD0Syv2vG5q5HKe6NmlqrwCIA'
     );
-    this.savedToDb = localStorage.getItem('tokenStored');
+    this.savedToDb = localStorage.getItem('tokenStored') === 'true';
+    this.onTokenRefresh();
+    
+    this.messaging.onMessage(payload => {
+      console.log('Message received. ', payload)
+    })
+
   }
 
-  requestPermission(): Promise<any> {
-    return this.messaging.requestPermission();
+  requestPermission(username): Promise<any> {
+    this.username = username;
+    return this.messaging.requestPermission().then(() => {
+      this.getToken(username)
+    });
   }
 
-  getToken(): Promise<any> {
+  getToken(username): Promise<any> {
     return this.messaging
       .getToken()
       .then(token => {
         if (!this.savedToDb) {
-          localStorage.setItem('tokenStored', 'true');
-          this.saveTokenToDb('dfsdf', token);
+          this.saveTokenToDb(username, token);
         }
+        this.token = token;
         return token;
       })
       .catch(e => e);
   }
 
   deleteToken(token): Promise<any> {
-    this.savedToDb = undefined;
-    localStorage.removeItem('tokenStored');
+    this.token = undefined;
     this.deleteTokenFromDb(token);
     return this.messaging.deleteToken(token);
   }
 
-  saveTokenToDb(name, token) {
+  private saveTokenToDb(name, token) {
+    console.log('save token to db')
+    this.savedToDb = true;
+    localStorage.setItem('tokenStored', 'true');
+    localStorage.setItem('username', name);
     this.database.ref('users')
       .push({
         username: name,
@@ -60,7 +74,19 @@ export class FirebaseService {
       });
   }
 
-  deleteTokenFromDb(token){
+  private deleteTokenFromDb(token) {
+    this.savedToDb = false;
+    localStorage.removeItem('tokenStored');
+    localStorage.removeItem('username');
+  }
 
+  private onTokenRefresh() {
+    this.messaging.onTokenRefresh(() => {
+      console.log('refresh token')
+      this.savedToDb = false;
+      this.deleteToken(this.token).then(() =>
+        this.getToken(this.username)
+      );
+    })
   }
 }

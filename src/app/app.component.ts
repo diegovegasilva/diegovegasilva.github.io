@@ -11,6 +11,7 @@ import _ from 'lodash';
 import { UsersService } from './core/services/users.service';
 import { FirebaseService } from './core/services/firebase.service';
 import { NotificationPromtComponent } from './shared/notification-promt/notification-promt.component';
+import { tokenKey } from '@angular/core/src/view';
 
 @Component({
 	selector: 'PWA-weather-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
 	loading: boolean = true;
 	users: Array<any>;
 	token: string;
+	username: string
 
 	constructor(
 		private weatherService: WeatherService,
@@ -43,6 +45,7 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.username = localStorage.getItem('username');
 		if (this.activeCities.length > 0) {
 			this.getCitiesForecast(this.activeCities);
 		} else {
@@ -50,6 +53,10 @@ export class AppComponent implements OnInit {
 			this.citiesForeCast = initialCity;
 		}
 		this.getUsers();
+		if(localStorage.getItem('tokenStored')){
+			console.log('got stored')
+			this.firebaseService.getToken(this.username).then( token => this.token = token).catch(e => console.log(e));
+		}
 	}
 	openDialog(): void {
 		const dialogRef = this.dialog.open(CitySelectorComponent, {
@@ -110,19 +117,18 @@ export class AppComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
-				console.log('result', result)
+				this.requestPermission(result);
 			}
 		});
 	}
 
-	requestPermission(name) {
+	requestPermission(username) {
 		this.firebaseService
-			.requestPermission()
-			.then(() => {
-				this.firebaseService.getToken().then(token => {
-					console.log('token', token)
-					this.token = token;
-				});
+			.requestPermission(username)
+			.then(token => {
+				this.token = token;
+				this.username = username;
+				console.log('request permission granted')
 			})
 			.catch(e => {
 				console.log('e', e);
