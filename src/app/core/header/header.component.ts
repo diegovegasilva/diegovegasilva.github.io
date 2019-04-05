@@ -7,6 +7,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Output() addCity = new EventEmitter<any>();
+  @Output() subscribe = new EventEmitter<any>();
   @Output() refreshData = new EventEmitter<any>();
   @Input() selectedCities: number[];
 
@@ -15,12 +16,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  refresh(){
+  refresh() {
     this.refreshData.emit(this.selectedCities);
   }
 
-  add(){
+  add() {
     this.addCity.emit();
+  }
+
+  subscribeNotification() {
+    this.subscribe.emit();
   }
 
 }

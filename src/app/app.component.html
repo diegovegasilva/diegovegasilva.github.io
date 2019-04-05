@@ -1,4 +1,4 @@
-<PWA-weather-header [selectedCities]="activeCities" (addCity)="addCity()" (refreshData)="getCitiesForecast($event)"></PWA-weather-header>
+<PWA-weather-header [selectedCities]="activeCities" (addCity)="addCity()" (subscribe)="subscribe()" (refreshData)="getCitiesForecast($event)"></PWA-weather-header>
 
 <main class="main">
     <PWA-weather-weather-card *ngFor="let forecast of citiesForeCast" [forecastData]="forecast" (closeCard)="removeCity($event)"></PWA-weather-weather-card>

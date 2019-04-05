@@ -10,109 +10,122 @@ import _ from 'lodash';
 
 import { UsersService } from './core/services/users.service';
 import { FirebaseService } from './core/services/firebase.service';
+import { NotificationPromtComponent } from './shared/notification-promt/notification-promt.component';
 
 @Component({
-  selector: 'PWA-weather-root',
-  templateUrl: './app.component.html',
-  styles: []
+	selector: 'PWA-weather-root',
+	templateUrl: './app.component.html',
+	styles: []
 })
 export class AppComponent implements OnInit {
-  title = 'PWA-weather-app';
-  citiesForeCast: Array<object> = [];
-  activeCities: any[];
-  loading: boolean = true;
-  users: Array<any>;
-  token: string;
+	title = 'PWA-weather-app';
+	citiesForeCast: Array<object> = [];
+	activeCities: any[];
+	loading: boolean = true;
+	users: Array<any>;
+	token: string;
 
-  constructor(
-    private weatherService: WeatherService,
-    private usersService: UsersService,
-    private firebaseService: FirebaseService,
-    public dialog: MatDialog
-  ) {
-    if (localStorage.getItem('selectedCities')) {
-      let activeIds = _.map(
-        localStorage.getItem('selectedCities').split(','),
-        id => parseInt(id)
-      );
-      this.activeCities = activeIds;
-    } else {
-      this.activeCities = [];
-    }
-  }
+	constructor(
+		private weatherService: WeatherService,
+		private usersService: UsersService,
+		private firebaseService: FirebaseService,
+		public dialog: MatDialog
+	) {
+		if (localStorage.getItem('selectedCities')) {
+			let activeIds = _.map(
+				localStorage.getItem('selectedCities').split(','),
+				id => parseInt(id)
+			);
+			this.activeCities = activeIds;
+		} else {
+			this.activeCities = [];
+		}
+	}
 
-  ngOnInit() {
-    if (this.activeCities.length > 0) {
-      this.getCitiesForecast(this.activeCities);
-    } else {
-      this.activeCities = [initialCity[0].city.id];
-      this.citiesForeCast = initialCity;
-    }
-    this.getUsers();
-    this.requestPermission();
-  }
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CitySelectorComponent, {
-      width: '250px'
-    });
+	ngOnInit() {
+		if (this.activeCities.length > 0) {
+			this.getCitiesForecast(this.activeCities);
+		} else {
+			this.activeCities = [initialCity[0].city.id];
+			this.citiesForeCast = initialCity;
+		}
+		this.getUsers();
+	}
+	openDialog(): void {
+		const dialogRef = this.dialog.open(CitySelectorComponent, {
+			width: '250px'
+		});
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.addCityData(result);
-      }
-    });
-  }
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				this.addCityData(result);
+			}
+		});
+	}
 
-  addCity() {
-    this.openDialog();
-  }
+	addCity() {
+		this.openDialog();
+	}
 
-  getCitiesForecast(citiesId) {
-    this.citiesForeCast = [];
-    _.each(citiesId, cityId => this.addCityData(cityId));
-  }
+	getCitiesForecast(citiesId) {
+		this.citiesForeCast = [];
+		_.each(citiesId, cityId => this.addCityData(cityId));
+	}
 
-  removeCity(cityId) {
-    _.remove(
-      this.citiesForeCast,
-      city => parseInt(city.city.id) === parseInt(cityId)
-    );
-    _.remove(this.activeCities, city => parseInt(city) === parseInt(cityId));
-    localStorage.setItem('selectedCities', this.activeCities.join());
-  }
+	removeCity(cityId) {
+		_.remove(
+			this.citiesForeCast,
+			city => parseInt(city.city.id) === parseInt(cityId)
+		);
+		_.remove(this.activeCities, city => parseInt(city) === parseInt(cityId));
+		localStorage.setItem('selectedCities', this.activeCities.join());
+	}
 
-  addCityData(cityId) {
-    this.loading = true;
-    this.weatherService.get5DayForecast(cityId).subscribe((data: any) => {
-      this.loading = false;
-      let cityIndex = _.indexOf(this.activeCities, data.city.id);
-      if (cityIndex > -1) {
-        this.citiesForeCast.splice(cityIndex, 1, data);
-      } else {
-        this.citiesForeCast.push(data);
-        this.activeCities.push(data.city.id);
-        localStorage.setItem('selectedCities', this.activeCities.join());
-      }
-    });
-  }
+	addCityData(cityId) {
+		this.loading = true;
+		this.weatherService.get5DayForecast(cityId).subscribe((data: any) => {
+			this.loading = false;
+			let cityIndex = _.indexOf(this.activeCities, data.city.id);
+			if (cityIndex > -1) {
+				this.citiesForeCast.splice(cityIndex, 1, data);
+			} else {
+				this.citiesForeCast.push(data);
+				this.activeCities.push(data.city.id);
+				localStorage.setItem('selectedCities', this.activeCities.join());
+			}
+		});
+	}
 
-  getUsers() {
-    this.usersService
-      .getUsers()
-      .subscribe((users: any[]) => (this.users = users));
-  }
+	getUsers() {
+		this.usersService
+			.getUsers()
+			.subscribe((users: any[]) => (this.users = users));
+	}
 
-  requestPermission() {
-    this.firebaseService
-      .requestPermission()
-      .then(() => {
-        this.firebaseService.getToken().then(token => {
-			console.log('token', token)
-          this.token = token;
-        });
-      })
-      .catch(e => {
-        console.log('e', e);
-      });
-  }
+	subscribe() {
+		console.log('open subscribe');
+		const dialogRef = this.dialog.open(NotificationPromtComponent, {
+			width: '450px'
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result) {
+				console.log('result', result)
+			}
+		});
+	}
+
+	requestPermission(name) {
+		this.firebaseService
+			.requestPermission()
+			.then(() => {
+				this.firebaseService.getToken().then(token => {
+					console.log('token', token)
+					this.token = token;
+				});
+			})
+			.catch(e => {
+				console.log('e', e);
+			});
+	}
 }

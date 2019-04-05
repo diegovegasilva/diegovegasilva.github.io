@@ -8,7 +8,7 @@ if (workbox) {
     });
 
 
-    workbox.precaching.precacheAndRoute(
+   /*  workbox.precaching.precacheAndRoute(
         [
           'https://fonts.googleapis.com/icon?family=Material+Icons',
           {
@@ -36,7 +36,7 @@ if (workbox) {
                 revision: '23423154'
             }
         ]
-    );
+    ); */
 
 
 

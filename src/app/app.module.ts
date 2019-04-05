@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { CitySelectorComponent } from './shared/city-selector/city-selector.component';
+import { NotificationPromtComponent } from './shared/notification-promt/notification-promt.component';
 
 
 
@@ -27,7 +28,7 @@ import { CitySelectorComponent } from './shared/city-selector/city-selector.comp
     SharedModule
   ],
   providers: [ { provide: LOCALE_ID, useValue: 'es' } ],
-  entryComponents : [ CitySelectorComponent ],
+  entryComponents : [ CitySelectorComponent, NotificationPromtComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
