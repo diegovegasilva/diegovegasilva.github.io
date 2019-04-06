@@ -1,5 +1,6 @@
 <header class="header">
     <h1 class="header__title">Weather PWA</h1>
+    <button *ngIf="allowA2Hs" (click)="install()"><i class="material-icons">cloud_download</i></button>
     <button *ngIf="!token" (click)="subscribeNotification()"><i class="material-icons">notifications</i></button>
     <button *ngIf="token" (click)="desubscribeNotification()"><i class="material-icons">notifications_off</i></button>
     <button aria-label="Refresh" (click)="refresh()"><i class="material-icons">refresh</i></button>

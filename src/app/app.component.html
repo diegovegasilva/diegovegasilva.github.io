@@ -1,12 +1,22 @@
-<PWA-weather-header [token]="token" [selectedCities]="activeCities" (addCity)="addCity()" (subscribe)="subscribe($event)" (refreshData)="getCitiesForecast($event)"></PWA-weather-header>
+<PWA-weather-header [token]="token"
+                    [allowA2Hs]="add2HsListener"
+                    [selectedCities]="activeCities"
+                    (addCity)="addCity()"
+                    (subscribe)="subscribe($event)"
+                    (add2Hs)="installPromt($event)"
+                    (refreshData)="getCitiesForecast($event)"></PWA-weather-header>
 
 <main class="main">
-    <PWA-weather-weather-card *ngFor="let forecast of citiesForeCast" [forecastData]="forecast" (closeCard)="removeCity($event)"></PWA-weather-weather-card>
-    <PWA-weather-users *ngIf="users" [users]="users"></PWA-weather-users>
+    <PWA-weather-weather-card *ngFor="let forecast of citiesForeCast"
+                              [forecastData]="forecast"
+                              (closeCard)="removeCity($event)"></PWA-weather-weather-card>
+    <PWA-weather-users *ngIf="users"
+                       [users]="users"></PWA-weather-users>
 </main>
 
 
-<div class="loader" *ngIf="loading">
+<div class="loader"
+     *ngIf="loading">
     <svg viewBox="0 0 32 32"
          width="32"
          height="32">
