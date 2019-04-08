@@ -12,7 +12,7 @@ if (workbox) {
         [
           'https://fonts.googleapis.com/icon?family=Material+Icons',
           '/es2015-polyfills.c5dd28b362270c767b34.js',
-          '/favicon.icon',
+          '/favicon.ico',
           '/main.b754c0233c2135dc635b.js',
           '/polyfills.8bbb231b43165d65d357.js',
           '/runtime.26209474bfa8dc87a77c.js',
