@@ -11,29 +11,15 @@ if (workbox) {
     workbox.precaching.precacheAndRoute(
         [
           'https://fonts.googleapis.com/icon?family=Material+Icons',
-          {
-                url: '/vendor.js',
-                revision: 'abcd',
-            },
-            {
-                url: '/main.js',
-                revision: '1234',
-            },
-            {
-                url: '/runtime.js',
-                revision: '12344',
-            },
-            {
-                url: '/polyfills.js',
-                revision: '1234234',
-            },
-            {
-                url: '/styles.js',
-                revision: '1234bdsa',
-            },
+          '/es2015-polyfills.c5dd28b362270c767b34.js',
+          '/favicon.icon',
+          '/main.b754c0233c2135dc635b.js',
+          '/polyfills.8bbb231b43165d65d357.js',
+          '/runtime.26209474bfa8dc87a77c.js',
+          '/styles.46363facf1f6f9b17322.css',
             {
                 url: '/index.html',
-                revision: '23423154'
+                revision: '2342315445'
             }
         ]
     );
